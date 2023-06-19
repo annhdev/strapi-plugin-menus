@@ -1,0 +1,76 @@
+{
+  "name": "strapi-plugin-menus",
+  "version": "1.4.1",
+  "description": "A plugin for Strapi CMS to customize the structure of menus and menu items.",
+  "license": "MIT",
+  "strapi": {
+    "displayName": "Menus",
+    "name": "menus",
+    "description": "Customize the structure of menus and menu items.",
+    "kind": "plugin"
+  },
+  "peerDependencies": {
+    "@strapi/admin": "^4.11.1",
+    "@strapi/design-system": "^1.8.0",
+    "@strapi/helper-plugin": "^4.11.0",
+    "@strapi/icons": "^1.8.0",
+    "@strapi/plugin-i18n": "4.11.1",
+    "@strapi/strapi": "^4.11.1",
+    "@strapi/utils": "^4.11.1",
+    "formik": "^2.4.1"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "immer": "^10.0.2",
+    "lodash": "4.17.21",
+    "prop-types": "^15.8.1",
+    "qs": "^6.11.1",
+    "react": "^18.2.0",
+    "react-dnd": "^15.1.2",
+    "react-dnd-html5-backend": "^15.1.3",
+    "react-flip-move": "^3.0.5",
+    "react-intl": "^6.4.1",
+    "react-query": "^3.39.3",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^5.3.4",
+    "react-select": "^5.7.0",
+    "reselect": "^4.1.8",
+    "styled-components": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=14.19.1 <=18.x.x",
+    "npm": ">=6.0.0"
+  },
+  "author": {
+    "name": "Matt Milburn",
+    "url": "https://github.com/mattmilburn"
+  },
+  "maintainers": [
+    {
+      "name": "Matt Milburn",
+      "url": "https://github.com/mattmilburn"
+    },
+    {
+      "name": "SubeeDev",
+      "url": "https://github.com/annhdev"
+    }
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/annhdev/strapi-plugin-menus.git"
+  },
+  "keywords": [
+    "strapi",
+    "plugin",
+    "link",
+    "list",
+    "mega",
+    "menu",
+    "navigation",
+    "nested",
+    "page"
+  ]
+}

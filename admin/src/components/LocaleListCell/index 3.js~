@@ -1,0 +1,46 @@
+"""
+Tools for converting old- to new-style metadata.
+"""
+from __future__ import annotations
+
+import os.path
+import textwrap
+from email.message import Message
+from email.parser import Parser
+from typing import Iterator
+
+from pkg_resources import Requirement, safe_extra, split_sections
+
+
+def requires_to_requires_dist(requirement: Requirement) -> str:
+    """Return the version specifier for a requirement in PEP 345/566 fashion."""
+    if getattr(requirement, "url", None):
+        return " @ " + requirement.url
+
+    requires_dist = []
+    for op, ver in requirement.specs:
+        requires_dist.append(op + ver)
+
+    if requires_dist:
+        return " (" + ",".join(sorted(requires_dist)) + ")"
+    else:
+        return ""
+
+
+def convert_requirements(requirements: list[str]) -> Iterator[str]:
+    """Yield Requires-Dist: strings for parsed requirements strings."""
+    for req in requirements:
+        parsed_requirement = Requirement.parse(req)
+        spec = requires_to_requires_dist(parsed_requirement)
+        extras = ",".join(sorted(parsed_requirement.extras))
+        if extras:
+            extras = f"[{extras}]"
+
+        yield parsed_requirement.project_name + extras + spec
+
+
+def generate_requirements(
+    extras_require: dict[str, list[str]]
+) -> Iterator[tuple[str, str]]:
+    """
+    Convert requirements from a setup()-st
