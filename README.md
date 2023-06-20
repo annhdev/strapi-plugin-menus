@@ -30,6 +30,7 @@
   - public:
   <img style="width: 960px; height: auto;" src="public/Screenshot 2023-06-19 182756.png" alt="Screenshot for Strapi menus plugin" />
 
+* Drag & Drop items in same level menu
 
 ## <a id="installation"></a>✨ Installation
 
@@ -77,7 +78,4 @@ npm run build
 </div>
 
 ## <a id="roadmap"></a>🚧 Roadmap
-* Drag and drop items
-* Populate `url` via relation
-* Restore deleted items (before saving)
-* More translations
+* Drag and drop builder menu
