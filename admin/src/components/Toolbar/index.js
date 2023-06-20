@@ -11,14 +11,24 @@ const Toolbar = ({actions}) => {
 
   return (
     <StyledIconButtonGroup {...stopPropagation}>
-      {visibleActions.map(({icon, label, onClick}, i) => (
-        <IconButton
-          key={i}
-          onClick={onClick}
-          label={label}
-          icon={icon}
-          noBorder
-        />
+      {visibleActions.map(({icon, label, onClick, type, onDragStart}, i) => (
+        (type !== "draggable" ?
+            <IconButton
+              key={i}
+              onClick={onClick}
+              label={label}
+              icon={icon}
+              noBorder
+            />
+            :
+            <IconButton
+              key={i}
+              draggable
+              onDragStart={onDragStart}
+              icon={icon}
+              noBorder
+            />
+        )
       ))}
     </StyledIconButtonGroup>
   );
@@ -30,7 +40,8 @@ Toolbar.propTypes = {
       hidden: PropTypes.bool,
       icon: PropTypes.node.isRequired,
       label: PropTypes.string.isRequired,
-      onClick: PropTypes.func.isRequired,
+      onClick: PropTypes.func,
+      onDragStart: PropTypes.func,
     }),
   ).isRequired,
 };

@@ -40,6 +40,7 @@ const MenuDataProvider = ({children, isCloningEntry, isCreatingEntry, menu}) => 
   const [initialData, setInitialData] = useState(initialValues);
   const [prevModifiedData, setPrevModifiedData] = useState(null);
   const [activeMenuItem, setActiveMenuItem] = useState(null);
+  const [draggedItem, setDraggedItem] = useState(null);
 
   const items = useMemo(() => {
     if (!values?.items) {
@@ -276,6 +277,8 @@ const MenuDataProvider = ({children, isCloningEntry, isCreatingEntry, menu}) => 
     relationReorder,
     schema,
     setActiveMenuItem,
+    draggedItem,
+    setDraggedItem
   };
 
   return (

@@ -31,21 +31,20 @@ const MenuRows = ({data, onClickClone, onClickDelete, onClickEdit}) => {
     const _currentLocale = locales.find((loc) => loc.code === currentLocale);
 
 
-    // const localizations = locales.map(locale => {
-    //   return {locale: locale.code};
-    // });
-
     function getLocalizations(row) {
-
-      let localizations = [{locale: defaultLocale.code}];
-      let _localizationData = row.attributes.localizations.data;
-      if (_localizationData) {
-        _localizationData.forEach(_local => {
-          localizations.push({locale: _local.attributes.locale});
-        })
+      try {
+        let localizations = [{locale: defaultLocale.code}];
+        let _localizationData = row.attributes.localizations.data;
+        if (_localizationData) {
+          _localizationData.forEach(_local => {
+            localizations.push({locale: _local.attributes.locale});
+          })
+        }
+        return localizations;
+      } catch (e) {
+        console.log(e);
+        return [];
       }
-      console.log(localizations)
-      return localizations;
     }
 
     // Maybe sort rows.
@@ -58,9 +57,6 @@ const MenuRows = ({data, onClickClone, onClickDelete, onClickEdit}) => {
         return sortOrder === 'ASC' ? compare : -compare;
       });
     }
-
-    // const localizations = [{ locale: 'fr-FR' }, { locale: 'ar' }];
-
 
     return (
       <Tbody>
@@ -163,7 +159,7 @@ MenuRows.propTypes = {
         localizations: PropTypes.shape({
           data: PropTypes.array.isRequired,
         }).isRequired,
-        locale: PropTypes.object.isRequired,
+        locale: PropTypes.string.isRequired,
       }),
     })
   ),

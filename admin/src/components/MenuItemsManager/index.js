@@ -31,7 +31,47 @@ const MenuItemsManager = ({fields}) => {
     modifiedData,
     moveMenuItem,
     setActiveMenuItem,
+    draggedItem,
+    setDraggedItem
   } = useMenuData();
+
+  function onDragStart(e, index, data) {
+
+    setDraggedItem({item: data, index});
+
+    let buttonGroup = e.target.parentNode;
+    let contentNode = buttonGroup.parentNode;
+    let currentItem = contentNode.parentNode;
+    let currentGroup = currentItem.parentNode;
+    let list = currentGroup.parentNode;
+
+    currentGroup.style = "background: rgb(255, 255, 255);box-shadow: #4945ff 0 0 0 2px;border-radius: 10px";
+
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/html", currentGroup);
+    e.dataTransfer.setDragImage(currentGroup, 20, 20);
+  }
+
+  function onDragOver(e, index, data) {
+    console.log("onDragOver:", index, draggedItem);
+    let draggedId = draggedItem.item.id;
+    moveMenuItem(draggedId, index - draggedItem.index);
+  }
+
+
+  function onDragEnd(e, index, data) {
+
+    let buttonGroup = e.target.parentNode;
+    let contentNode = buttonGroup.parentNode;
+    let currentItem = contentNode.parentNode;
+    let currentGroup = currentItem.parentNode;
+    let list = currentGroup.parentNode;
+
+    currentGroup.style = "";
+
+    setDraggedItem(null);
+  }
+
   const stickyRef = useRef(null);
   const {isSticky, stickyWidth} = useStickyPosition(stickyRef, !!activeMenuItem);
 
@@ -79,6 +119,9 @@ const MenuItemsManager = ({fields}) => {
               onDelete={() => deleteMenuItem(item.id)}
               onMoveUp={() => moveMenuItem(item.id, -1)}
               onMoveDown={() => moveMenuItem(item.id, 1)}
+              onDragStart={() => onDragStart(event, i, item)}
+              onDragOver={() => onDragOver(event, i, item)}
+              onDragEnd={() => onDragEnd(event, i, item)}
             >
               {!!item?.children?.length && renderItems(item.children, level + 1)}
             </TreeMenuItem>

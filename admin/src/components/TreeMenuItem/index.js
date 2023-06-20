@@ -7,13 +7,32 @@ import {Typography} from '@strapi/design-system/Typography';
 import ChevronDown from '@strapi/icons/ChevronDown';
 import ChevronUp from '@strapi/icons/ChevronUp';
 import Plus from '@strapi/icons/Plus';
+import Move from '@strapi/icons/Move';
 import Trash from '@strapi/icons/Trash';
 
 import {getBoxProps, getTrad, menuItemProps} from '../../utils';
 import {Toolbar} from '../';
 import {Label, Wrapper} from './styled';
 
-const TreeMenuItem = forwardRef(({children, data, hasErrors, isFirst, isLast, isActive, isMaxDepth, onAddSubmenu, onClick, onDelete, onMoveUp, onMoveDown,}, ref) => {
+const TreeMenuItem = forwardRef((
+  {
+    children,
+    data,
+    hasErrors,
+    isFirst,
+    isLast,
+    isActive,
+    isMaxDepth,
+    onAddSubmenu,
+    onClick,
+    onDelete,
+    onMoveUp,
+    onMoveDown,
+    onDragStart,
+    onDragOver,
+    onDragEnd
+  }, ref) => {
+
   const {formatMessage} = useIntl();
 
   let bgColor, borderColor;
@@ -38,12 +57,23 @@ const TreeMenuItem = forwardRef(({children, data, hasErrors, isFirst, isLast, is
 
   const actions = [
     {
+      hidden: false,
+      icon: <Move/>,
+      label: formatMessage({
+        id: getTrad('ui.move.menu'),
+        defaultMessage: 'Move menu',
+      }),
+      type: "draggable",
+      onDragStart: onDragStart,
+    },
+    {
       hidden: isMaxDepth,
       icon: <Plus/>,
       label: formatMessage({
         id: getTrad('ui.add.menu'),
         defaultMessage: 'Add submenu',
       }),
+      type: "button",
       onClick: onAddSubmenu,
     },
     {
@@ -53,6 +83,7 @@ const TreeMenuItem = forwardRef(({children, data, hasErrors, isFirst, isLast, is
         id: getTrad('ui.move.menuItem.down'),
         defaultMessage: 'Move item down',
       }),
+      type: "button",
       onClick: onMoveDown,
     },
     {
@@ -62,6 +93,7 @@ const TreeMenuItem = forwardRef(({children, data, hasErrors, isFirst, isLast, is
         id: getTrad('ui.move.menuItem.up'),
         defaultMessage: 'Move item up',
       }),
+      type: "button",
       onClick: onMoveUp,
     },
     {
@@ -71,6 +103,7 @@ const TreeMenuItem = forwardRef(({children, data, hasErrors, isFirst, isLast, is
         id: getTrad('ui.delete.menuItem'),
         defaultMessage: 'Delete menu item',
       }),
+      type: "button",
       onClick: onDelete,
     },
   ];
@@ -82,6 +115,8 @@ const TreeMenuItem = forwardRef(({children, data, hasErrors, isFirst, isLast, is
         hasErrors={hasErrors}
         isActive={isActive}
         onClick={onClick}
+        onDragOver={onDragOver}
+        onDragEnd={onDragEnd}
       >
         <Flex justifyContent="space-between">
           <Label>
@@ -118,6 +153,12 @@ TreeMenuItem.defaultProps = {
   },
   onMoveDown: () => {
   },
+  onDragStart: (i) => {
+  },
+  onDragOver: () => {
+  },
+  onDragEnd: () => {
+  },
 };
 
 TreeMenuItem.propTypes = {
@@ -133,6 +174,9 @@ TreeMenuItem.propTypes = {
   onDelete: PropTypes.func,
   onMoveUp: PropTypes.func,
   onMoveDown: PropTypes.func,
+  onDragStart: PropTypes.func,
+  onDragOver: PropTypes.func,
+  onDragEnd: PropTypes.func
 };
 
 export default TreeMenuItem;
