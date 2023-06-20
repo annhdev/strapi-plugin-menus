@@ -19,7 +19,7 @@
 <img style="width: 960px; height: auto;" src="public/Screenshot 2023-06-19 182443.png" alt="Screenshot for Strapi menus plugin" />
 
   - fill content from other language:
-    <img style="width: 960px; height: auto;" src="public/Screenshot 2023-06-19 183052.png" alt="Screenshot for Strapi menus plugin" />
+    <img style="width: 960px; height: auto;" src="public/Screenshot 2023-06-20 142830.png" alt="Screenshot for Strapi menus plugin" />
   - delete locale of menu:
     
 
